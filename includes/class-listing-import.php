@@ -51,11 +51,11 @@ class WPL_Idx_Listing {
 	 */
 	public static function wp_listings_idx_create_post($listings) {
 		if(class_exists( 'IDX_Broker_Plugin')) {
-			require_once(ABSPATH . 'wp-content/plugins/idx-broker-platinum/idx/idx-api.php');
+			require_once(WP_PLUGIN_DIR . '/idx-broker-platinum/idx/idx-api.php');
 
 			// Load Equity API if it exists
 			if(class_exists( 'Equity_Idx_Api' )) {
-				require_once(ABSPATH . 'wp-content/themes/equity/lib/idx/class.Equity_Idx_Api.inc.php');
+				require_once(get_theme_root() . '/equity/lib/idx/class.Equity_Idx_Api.inc.php');
 				$_equity_idx = new Equity_Idx_Api;
 			}
 
@@ -193,7 +193,7 @@ class WPL_Idx_Listing {
 	 */
 	public static function wp_listings_update_post() {
 
-		require_once(ABSPATH . 'wp-content/plugins/idx-broker-platinum/idx/idx-api.php');
+		require_once(WP_PLUGIN_DIR . '/idx-broker-platinum/idx/idx-api.php');
 
 		// Load IDX Broker API Class and retrieve featured properties
 		$_idx_api = new \IDX\Idx_Api();
@@ -210,7 +210,7 @@ class WPL_Idx_Listing {
 			if( isset($idx_featured_listing_wp_options[$prop['listingID']]['post_id']) ) {
 				// Update property data
 				if(class_exists( 'Equity_Idx_Api' )) {
-					require_once(ABSPATH . 'wp-content/themes/equity/lib/idx/class.Equity_Idx_Api.inc.php');
+					require_once(get_theme_root() . '/equity/lib/idx/class.Equity_Idx_Api.inc.php');
 					$_equity_idx = new Equity_Idx_Api;
 					$equity_properties = $_equity_idx->equity_listing_ID($prop['idxID'], $prop['listingID']);
 					if($equity_properties == false) {
@@ -673,7 +673,7 @@ add_action( 'wp_listings_idx_auto_import', 'wp_listings_idx_auto_import_task' );
  */
 function wp_listings_idx_auto_import_task() {
 	if(class_exists( 'IDX_Broker_Plugin')) {
-		require_once(ABSPATH . 'wp-content/plugins/idx-broker-platinum/idx/idx-api.php');
+		require_once(WP_PLUGIN_DIR . '/idx-broker-platinum/idx/idx-api.php');
 		$_idx_api = new \IDX\Idx_Api();
 		$properties = $_idx_api->client_properties('featured');
 
